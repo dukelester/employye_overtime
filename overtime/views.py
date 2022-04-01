@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 # Create your views here.
-from . models import Company
+from . models import Company,Departments
 def pageNotFound(request, exception, template_name='error404.html'):
     response = render(request, template_name)
     response.status_code = 404
@@ -26,7 +26,27 @@ def addEmployView(request):
     return render(request, 'company.html')
 @login_required(login_url='login')
 def addDepartmentView(request):
-    return render(request, 'departments.html')
+    company = Company.objects.all()
+    print(company, 'asdfghjkl;lkjhgfdsdfghj')
+    if request.method == 'POST':
+        department = Departments(
+            company = request.POST.get('company'),
+            department_name = request.POST.get('department_name'),
+            number_of_employees = request.POST.get('number_of_employees'),
+            minimum_salary = request.POST.get('minimum_salary'),
+            maximum_salary = request.POST.get('maximum_salary'),
+            overtime_pay_perhour = request.POST.get('overtime_pay_perhour'),
+            
+        )
+        department.save()
+        messages.add_message(request, messages.SUCCESS, "Company Details Updated Successfully")
+        
+        if department:
+            return redirect('homepage')
+            
+            
+    
+    return render(request, 'departments.html', {"company":company})
 
 @login_required(login_url='login')
 def addEmployeeView(request):
