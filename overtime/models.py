@@ -5,15 +5,20 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 class Company(models.Model):
     company_name = models.CharField(max_length=255)
-    company_CEO = models.CharField(max_length=255)
-    company_reg = models.CharField(max_length=255)
-    no_of_staff = models.IntegerField()
+    contact_person = models.CharField(max_length=255, null=True, blank=True)
     company_email = models.EmailField()
     description = models.TextField()
     address = models.TextField()
+    country = models.CharField(max_length=255, default="Kenya")
+    city = models.CharField(max_length=255, default="Nairobi")
+    town = models.CharField(max_length=255)
     postal_code = models.CharField(max_length=255)
-    location = models.CharField(max_length=255)
-    no_of_employees = models.IntegerField()
+    phone_number = models.CharField(max_length=20)
+    office_number = models.CharField(max_length=20)
+    fax = models.CharField(max_length=30, blank=True, null=True)
+    website_url = models.URLField(blank=True, null=True)
+    
+    
     created_at = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
@@ -28,7 +33,7 @@ class Departments(models.Model):
     number_of_employees = models.IntegerField()
     minimum_salary = models.DecimalField(max_digits=10, decimal_places=0)
     maximum_salary = models.DecimalField(max_digits=10, decimal_places=0)
-    overtime_pay = models.DecimalField(max_digits=10, decimal_places=0)
+    overtime_pay_perhour = models.DecimalField(max_digits=10, decimal_places=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=True)
     
@@ -40,8 +45,37 @@ class Departments(models.Model):
         verbose_name_plural = "Departments"
         
 class Employee(models.Model):
-    department_name = models.ForeignKey(Departments, on_delete=models.CASCADE)
+    department = models.ForeignKey(Departments, on_delete=models.CASCADE)
     employee = models.OneToOneField(User, on_delete=models.CASCADE)
+    email = models.EmailField(max_length=65, unique=True, verbose_name='email')
+    username = models.CharField(max_length=40, unique=True)
+    phone = models.CharField(max_length=15, unique=True)
+    mobile = models.CharField(max_length=15)
+    address = models.CharField(max_length=200, blank=True)
+    first_name = models.CharField(max_length=200, blank=True)
+    last_name = models.CharField(max_length=200, blank=True)
+    
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return self.first_name + " " + self.last_name 
+    class Meta:
+        verbose_name = "Employee"
+        verbose_name_plural = "Employees"
+class Overtime(models.Model):
+    employee = models.ForeignKey(Employee, on_delete=models.CASCADE)   
+    overtime_date = models.DateField()
+    overtime_hours = models.IntegerField()
+    description = models.TextField()
+    overtime_pay = models.DecimalField(max_digits=10, decimal_places=0)
+    created_at = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return self.description  
+    class Meta:
+        verbose_name = "Over Time"
+        verbose_name_plural = "Over Time"
     
 
     

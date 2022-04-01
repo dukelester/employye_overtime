@@ -19,3 +19,17 @@ def CalenderView(request):
 @login_required(login_url='login')
 def homepageView(request):
     return render(request, 'index.html')
+
+@login_required(login_url='login')
+def addEmployView(request):
+    return render(request, 'company.html')
+@login_required(login_url='login')
+def addDepartmentView(request):
+    return render(request, 'departments.html')
+
+@login_required(login_url='login')
+def addEmployeeView(request):
+    return render(request, 'employees.html')
+@login_required(login_url='login')
+def companySettingsView(request):
+    return render(request, 'settings.html')

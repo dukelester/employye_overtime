@@ -57,7 +57,7 @@
                     <ul class="dropdown-menu">
                         <li><a href="#">My Profile</a></li>
                         <li><a href="#">Edit Profile</a></li>
-                        <li><a href="#">Settings</a></li>
+                        <li><a href="{% url 'settings'%}">Settings</a></li>
                         <li><a href="{% url 'logout' %}">Logout</a></li>
                     </ul>
                 </li>
@@ -67,7 +67,7 @@
                 <ul class="dropdown-menu pull-right">
                     <li><a href="#">My Profile</a></li>
                     <li><a href="#">Edit Profile</a></li>
-                    <li><a href="#">Settings</a></li>
+                    <li><a href="{% url 'settings' %}">Settings</a></li>
                     <li><a href="{% url 'logout' %}">Logout</a></li>
                 </ul>
             </div>
@@ -80,29 +80,20 @@
                         <li class="active">
                              {% if request.user.is_hr%}
                         <a href="{% url 'homepage' %}"><i class="fa fa-dashboard"></i> HR Dashboard</a>
+                        <li class="submenu">
+                            <li><a href="{% url 'settings' %}">Company Details</a></li>
+                            <li><a href="{% url 'departments' %}">Departments</a></li>
+                        <li><a href="{% url 'employees' %}">All Employees</a></li>
+                        <li class="title"><a href="#"> Employee OverTime </a></li>
+
                         {% else %}
                         <a href="{% url 'homepage' %}"><i class="fa fa-dashboard"></i> Employee Dashboard</a>
                         {% endif %}
                             
                         </li>
-                        
-                        <li>
-                            <a href="#"><i class="fa fa-cog" aria-hidden="true"></i> Settings</a>
-                        </li>
                         <li>
                             <a href="{% url 'calendar' %}"><i class="fa fa-calendar" aria-hidden="true"></i> Calendar</a>
                         </li>
-                        
-                        <li class="submenu">
-                        <li><a href="#">All Employees</a></li>
-                        <li><a href="#">Holidays</a></li>
-                        <li><a href="#"><span>Leave Requests</span> <span class="badge bg-primary pull-right">1</span></a></li>
-                        <li><a href="#">Attendance</a></li>
-                        <li><a href="#">Departments</a></li>
-                        <li><a href="#">Designations</a></li>   
-                        
-                        <li class="title"><a href="#"> Employee OverTime </a></li>
-
                             </ul>
                         </li>
                     </ul>
