@@ -1,32 +1,35 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
-    <title>Preadmin - Bootstrap Admin Template</title>
+    <link rel="shortcut icon" type="image/x-icon" href="{% static '/img/favicon.png'%}">
+    <title>Employee Manager</title>
     <link href="https://fonts.googleapis.com/css?family=Fira+Sans:400,500,600,700" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
-    <!--[if lt IE 9]>
-		<script src="assets/js/html5shiv.min.js"></script>
-		<script src="assets/js/respond.min.js"></script>
-	<![endif]-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static '/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static '/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static '/css/fullcalendar.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/dataTables.bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static '/css/select2.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap-datetimepicker.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static '/plugins/morris/morris.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static '/css/style.css' %}">
 </head>
 
 <body>
     <div class="main-wrapper">
         <div class="account-page">
             <div class="container">
-                <h3 class="account-title">Login</h3>
+                <h3 class="account-title">Login To Your Account</h3>
                 <div class="account-box">
                     <div class="account-wrapper">
                         <div class="account-logo">
-                            <a href="index.html"><img src="assets/img/logo2.png" alt="Preadmin"></a>
+                            <a href="{% url 'homepage' %}"><img src="{% static '/img/logo2.png'%}" alt="Preadmin"></a>
                         </div>
-                        <form action="index.html">
+                        <form>
                             <div class="form-group form-focus">
                                 <label class="control-label">Username or Email</label>
                                 <input class="form-control floating" type="text">
@@ -38,18 +41,26 @@
                             <div class="form-group text-center">
                                 <button class="btn btn-primary btn-block account-btn" type="submit">Login</button>
                             </div>
-                            <div class="text-center">
-                                <a href="forgot-password.html">Forgot your password?</a>
-                            </div>
+                            
                         </form>
+                        <h4 style="text-align:center">OR </h4>
+                        <div class="form-group text-center">
+                            <a href="{% url 'register' %}">
+                                <button class="btn btn-primary btn-block account-btn" type="button">Register</button>
+                            </a>
+                            </div>
+
+                        <div class="text-center">
+                                <a href="{% url 'password_reset' %}">Forgot your password?</a>
+                            </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <script type="text/javascript" src="assets/js/jquery-3.2.1.min.js"></script>
-    <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="assets/js/app.js"></script>
+    <script type="text/javascript" src="{% static '/js/jquery-3.2.1.min.js' %}"></script>
+    <script type="text/javascript" src="{% static '/js/bootstrap.min.js' %}"></script>
+    <script type="text/javascript" src="{% static '/js/app.js' %}"></script>
 </body>
 
 </html>

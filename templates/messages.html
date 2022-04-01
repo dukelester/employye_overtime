@@ -1,0 +1,21 @@
+{% if messages %}
+
+
+{% for message in messages %}
+
+
+<div class="text-warning {{message.tags}} message">
+
+    {{message}}
+
+
+</div>
+
+
+
+{% endfor %}
+
+
+
+
+{% endif %}

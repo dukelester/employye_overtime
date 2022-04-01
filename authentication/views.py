@@ -2,7 +2,6 @@
 from __future__ import print_function
 from .forms import AccountUpdateForm
 import requests
-import pyotp
 from datetime import datetime
 import base64
 import threading
@@ -20,7 +19,7 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
 from django.core.mail import EmailMessage
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-from django.utils.encoding import force_bytes, force_text
+from django.utils.encoding import force_bytes, force_str
 from .models import Account
 from . utils import generate_token
 from django.db.models.query_utils import Q
@@ -164,7 +163,7 @@ def signup(request):
         return render(request, 'register.html')
 def activate_user(request, uidb64, token, backend='django.contrib.auth.backends.ModelBackend'):
     try:
-        uid = force_text(urlsafe_base64_decode(uidb64))
+        uid = force_str(urlsafe_base64_decode(uidb64))
         user = User.objects.get(pk=uid)
 
     except Exception as e:
