@@ -5,7 +5,7 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 class Company(models.Model):
     company_name = models.CharField(max_length=255)
-    contact_person = models.CharField(max_length=255, null=True, blank=True)
+    contact_person = models.CharField(max_length=255)
     company_email = models.EmailField()
     description = models.TextField()
     address = models.TextField()
@@ -15,7 +15,7 @@ class Company(models.Model):
     postal_code = models.CharField(max_length=255)
     phone_number = models.CharField(max_length=20)
     office_number = models.CharField(max_length=20)
-    fax = models.CharField(max_length=30, blank=True, null=True)
+    fax = models.CharField(max_length=30, )
     website_url = models.URLField(blank=True, null=True)
     
     
