@@ -14,5 +14,8 @@ def serverError(request, template_name='errors500.html'):
     return render(request, template_name)
 
 @login_required(login_url='login')
+def CalenderView(request):
+    return render(request,'calendar.html')
+@login_required(login_url='login')
 def homepageView(request):
     return render(request, 'index.html')

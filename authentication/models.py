@@ -44,7 +44,7 @@ def profile_image_filepath(self, filename):  # upload the image to
 
 
 def get_default_profile_image():  # the default image
-    return "user.png"
+    return "user-04.jpg"
 
 
 class UserProfile(models.Model):
