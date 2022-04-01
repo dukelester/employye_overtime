@@ -71,19 +71,17 @@ def signup(request):
     context = {}
     user = request.user
     if user.is_authenticated:
-        return redirect('home')
+        return redirect('homepage')
     if request.method == "POST":
         username = request.POST.get('username')
         email = request.POST.get('email', False)
         password1 = request.POST.get('password1')
         password2 = request.POST.get('password2')
-        first_name = request.POST.get('first_name')
-        last_name = request.POST.get('last_name')
         phone = request.POST.get('phone')
         user_type = request.POST.get('user_type')
 
         print(username, email, password1, password2,
-              phone, user_type, first_name, last_name)
+              phone, user_type)
 
         if password1 == password2:
             if User.objects.filter(email=email).exists():
@@ -105,12 +103,9 @@ def signup(request):
             else:
 
                 user = User.objects.create_user(email=email, username=email, password=password1,
-                                                first_name=first_name,last_name=last_name,
                                                 phone=phone
                                                 )
                 user.is_active = True
-                user.first_name = first_name
-                user.last_name = last_name
                 user.phone = phone
                 user.user_type = user_type
                 
@@ -123,39 +118,36 @@ def signup(request):
                     
                 # )
                 # landlord.save()
-                # if user_type == 'Landlord':
-                #     user.is_landlord = True
-                #     # user.is_phone_verified = True
-                #     user.save()
-                #     messages.success(
-                #         request, 'Landlord Account created successfully!')
-                #     user = authenticate(username=email, password=password1)
-
-                #     send_activation_email(user, request)
+                if user_type == 'Hr':
+                    user.is_hr = True
+                    # user.is_phone_verified = True
+                    user.save()
+                    messages.success(
+                        request, 'HR Account created successfully!')
+                    user = authenticate(username=email, password=password1)
+                    send_activation_email(user, request)
                     
-                #     login(request, user)
-                #     user.save()
-                #     user.refresh_from_db()
-                #     # sending the activation link
+                    login(request, user)
+                    user.save()
+                    user.refresh_from_db()
+                    # sending the activation link
+                    return redirect('homepage')
 
-                # else:
-                #     user.is_landlord = False
+                else:
+                    user.is_hr = False
                    
-                #     messages.success(
-                #         request, 'Tenant Account created successfully!')
-                #     user = authenticate(username=email, password=password1)
-                #     login(request, user)
+                    messages.success(
+                        request, 'Employee Account created successfully!')
+                    user = authenticate(username=email, password=password1)
+                    login(request, user)
                     
-                #     send_activation_email(user, request)
+                    send_activation_email(user, request)
                    
-                #     user.save()
-                #     user.refresh_from_db()
-
-                    # return redirect('home')
+                    user.save()
+                    user.refresh_from_db()
+                    print("sign up successful")
+                    return redirect('homepage')
                    
-
-                print("sign up successful")
-
         else:
             messages.info(request, 'Passwords do not match!')
             return render(request, 'register.html', context)
@@ -182,7 +174,7 @@ def login_function(request, backend='django.contrib.auth.backends.ModelBackend')
     if request.user.is_authenticated:
         messages.add_message(
             request, messages.SUCCESS, "You Already Have An Account!")
-        return redirect('home')
+        return redirect('homepage')
     else:
         if request.method == 'POST':
             username = request.POST.get('email')
@@ -207,7 +199,7 @@ def login_function(request, backend='django.contrib.auth.backends.ModelBackend')
                     if user.is_active:
                         login(request, user,
                             backend='django.contrib.auth.backends.ModelBackend')
-                        return redirect('home')
+                        return redirect('homepage')
                     else:
                         messages.add_message(
                     request, messages.ERROR, "Your Account Is Innactive!")
@@ -357,7 +349,7 @@ def password_reset_request(request):
                         return HttpResponse('Invalid header found.')
                         
                     messages.success(request, 'A message with reset password instructions has been sent to your inbox.')
-                    return redirect ('home')
+                    return redirect ('homepage')
             messages.error(request, 'An invalid email has been entered.')
     password_reset_form = PasswordResetForm()
     return render(request=request, template_name="password/password_reset.html", context={"password_reset_form":password_reset_form})

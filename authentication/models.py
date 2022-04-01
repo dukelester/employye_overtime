@@ -3,24 +3,21 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 # Create your models here.
 
 class MyAccountManager(BaseUserManager):
-    def create_user(self,email,username, first_name, last_name, phone,password=None, **kwargs):
+    def create_user(self,email,username,phone,password=None, **kwargs):
         if username is None:
             raise TypeError("The user must have a Username!")
         if email is None:
             raise TypeError("The user must have a valid Email!")
 
-        user = self.model(username=username, email=self.normalize_email(email),first_name = first_name,
-            last_name = last_name,
+        user = self.model(username=username, email=self.normalize_email(email),
             phone = phone)
-        user.first_name = first_name
-        user.last_name = last_name
         user.phone = phone
         user.set_password(password)
         user.save(using=self._db)
         
         return user
     
-    def create_superuser(self,email,username,password,first_name, last_name, phone):
+    def create_superuser(self,email,username,password, phone):
         if username is None:
             raise TypeError("The user must have a Username!")
         if email is None:
@@ -30,13 +27,9 @@ class MyAccountManager(BaseUserManager):
             email = self.normalize_email(email),
             username = username,
             password = password,
-            first_name = first_name,
-            last_name = last_name,
             phone = phone
             
         )
-        user.first_name = first_name
-        user.last_name = last_name
         user.phone = phone
         user.is_admin = True
         user.is_staff = True
@@ -89,7 +82,7 @@ class Account(AbstractBaseUser):
 
     objects = MyAccountManager()
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS =  ['username','first_name','last_name','phone']
+    REQUIRED_FIELDS =  ['username','phone']
 
     def __str__(self):
         return self.username

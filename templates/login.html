@@ -29,14 +29,18 @@
                         <div class="account-logo">
                             <a href="{% url 'homepage' %}"><img src="{% static '/img/logo2.png'%}" alt="Preadmin"></a>
                         </div>
-                        <form>
+                        <form method="post">
+                            {% csrf_token %}
+
+                            {% include 'messages.html'%}
+                            
                             <div class="form-group form-focus">
-                                <label class="control-label">Username or Email</label>
-                                <input class="form-control floating" type="text">
+                                <label class="control-label"> Email</label>
+                                <input class="form-control floating" type="text" name="email">
                             </div>
                             <div class="form-group form-focus">
                                 <label class="control-label">Password</label>
-                                <input class="form-control floating" type="password">
+                                <input class="form-control floating" type="password" name="password">
                             </div>
                             <div class="form-group text-center">
                                 <button class="btn btn-primary btn-block account-btn" type="submit">Login</button>
