@@ -1,13 +1,14 @@
 
 from django.contrib.auth import views as auth_views
 from django.urls import path, include
-from .views import (signup, login_function, logout_view,
+from .views import (afterRegister, signup, login_function, logout_view,
                      ProfileView, UpdateProfile,password_reset_request,
                      activate_user)
 urlpatterns = [
     path('login', login_function, name='login'),
     path('logout', logout_view, name='logout'),
     path('register', signup, name='register'),
+    path("success", afterRegister, name="afterRegister"),
     path('activate-user/<uidb64>/<token>', activate_user, name='activate'),
     path('profile/<int:user_id>/', ProfileView, name='profile'),
     path('<int:user_id>/update/', UpdateProfile, name='profile_update'),

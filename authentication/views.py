@@ -58,6 +58,8 @@ def send_activation_email(user, request):
 def loginpage(request):
     return render(request, 'login.html')
 
+def afterRegister(request):
+    return render (request, 'coming-soon.html')
 
 def signuppage(request):
     return render(request, 'register.html')
@@ -131,7 +133,7 @@ def signup(request):
                     user.save()
                     user.refresh_from_db()
                     # sending the activation link
-                    return redirect('homepage')
+                    return redirect('afterRegister')
 
                 else:
                     user.is_hr = False
@@ -146,7 +148,7 @@ def signup(request):
                     user.save()
                     user.refresh_from_db()
                     print("sign up successful")
-                    return redirect('homepage')
+                    return redirect('afterRegister')
                    
         else:
             messages.info(request, 'Passwords do not match!')
