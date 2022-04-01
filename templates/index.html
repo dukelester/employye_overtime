@@ -1,0 +1,300 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+<body>
+        <div class="page-wrapper">
+            <div class="content container-fluid">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-lg-3">
+                        <div class="dash-widget dash-widget5">
+                            <span class="dash-widget-icon bg-success"><i class="fa fa-money" aria-hidden="true"></i></span>
+                            <div class="dash-widget-info">
+                                <h3>$998</h3>
+                                <span>Revenue</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-lg-3">
+                        <div class="dash-widget dash-widget5">
+                            <span class="dash-widget-icon bg-info"><i class="fa fa-user-o" aria-hidden="true"></i></span>
+                            <div class="dash-widget-info">
+                                <h3>1072</h3>
+                                <span>Employees</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-lg-3">
+                        <div class="dash-widget dash-widget5">
+                            <span class="dash-widget-icon bg-info"><i class="fa fa-user-o" aria-hidden="true"></i></span>
+                            <div class="dash-widget-info">
+                                <h3>1072</h3>
+                                <span>Overtime</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                   
+                    
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card-box">
+                            <div id="bar-example"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 col-xs-12">
+                        <div class="panel">
+                            <div class="panel-heading text-center">
+                                <h3 class="panel-title">Project Status</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div id="donutChart" class="rad-chart"></div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-xs-12">
+                        <div class="panel">
+                            <div class="panel-heading text-center">
+                                <h3 class="panel-title">Product Status</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div id="areaChart" class="rad-chart"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12 col-xs-12">
+                        <div class="panel">
+                            <div class="panel-heading text-center">
+                                <h3 class="panel-title">Task Status</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div id="area-chart" class="rad-chart"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                    
+                            
+                
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="panel task-panel">
+                            <div class="panel-heading">
+                                <div class="navbar">
+                                    <div class="pull-left">
+                                        <div class="add-task-btn-wrapper">
+                                            <span class="add-task-btn btn btn-default btn-xs">
+													Add Task
+												</span>
+                                        </div>
+                                    </div>
+                                    <ul class="nav navbar-nav pull-right custom-menu">
+                                        <li class="dropdown">
+                                            <a href="" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-cog"></i></a>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="javascript:void(0)">Pending Tasks</a></li>
+                                                <li><a href="javascript:void(0)">Completed Tasks</a></li>
+                                                <li><a href="javascript:void(0)">All Tasks</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                <div class="task-wrapper">
+                                    <div class="task-list-container">
+                                        <div class="task-list-body">
+                                            <ul id="task-list">
+                                                <li class="task">
+                                                    <div class="task-container">
+                                                        <span class="task-action-btn task-check">
+																<span class="action-circle large complete-btn" title="Mark Complete">
+																	<i class="material-icons">check</i>
+																</span>
+                                                        </span>
+                                                        <span class="task-label" contenteditable="true">Patient appointment booking</span>
+                                                        <span class="task-action-btn task-btn-right">
+																<span class="action-circle large" title="Assign">
+																	<i class="material-icons">person_add</i>
+																</span>
+                                                        <span class="action-circle large delete-btn" title="Delete Task">
+																	<i class="material-icons">delete</i>
+																</span>
+                                                        </span>
+                                                    </div>
+                                                </li>
+                                                <li class="task">
+                                                    <div class="task-container">
+                                                        <span class="task-action-btn task-check">
+																<span class="action-circle large complete-btn" title="Mark Complete">
+																	<i class="material-icons">check</i>
+																</span>
+                                                        </span>
+                                                        <span class="task-label" contenteditable="true">Appointment booking with payment gateway</span>
+                                                        <span class="task-action-btn task-btn-right">
+																<span class="action-circle large" title="Assign">
+																	<i class="material-icons">person_add</i>
+																</span>
+                                                        <span class="action-circle large delete-btn" title="Delete Task">
+																	<i class="material-icons">delete</i>
+																</span>
+                                                        </span>
+                                                    </div>
+                                                </li>
+                                                <li class="completed task">
+                                                    <div class="task-container">
+                                                        <span class="task-action-btn task-check">
+																<span class="action-circle large complete-btn" title="Mark Complete">
+																	<i class="material-icons">check</i>
+																</span>
+                                                        </span>
+                                                        <span class="task-label">Doctor available module</span>
+                                                        <span class="task-action-btn task-btn-right">
+																<span class="action-circle large" title="Assign">
+																	<i class="material-icons">person_add</i>
+																</span>
+                                                        <span class="action-circle large delete-btn" title="Delete Task">
+																	<i class="material-icons">delete</i>
+																</span>
+                                                        </span>
+                                                    </div>
+                                                </li>
+                                                <li class="task">
+                                                    <div class="task-container">
+                                                        <span class="task-action-btn task-check">
+																<span class="action-circle large complete-btn" title="Mark Complete">
+																	<i class="material-icons">check</i>
+																</span>
+                                                        </span>
+                                                        <span class="task-label" contenteditable="true">Patient and Doctor video conferencing</span>
+                                                        <span class="task-action-btn task-btn-right">
+																<span class="action-circle large" title="Assign">
+																	<i class="material-icons">person_add</i>
+																</span>
+                                                        <span class="action-circle large delete-btn" title="Delete Task">
+																	<i class="material-icons">delete</i>
+																</span>
+                                                        </span>
+                                                    </div>
+                                                </li>
+                                                <li class="task">
+                                                    <div class="task-container">
+                                                        <span class="task-action-btn task-check">
+																<span class="action-circle large complete-btn" title="Mark Complete">
+																	<i class="material-icons">check</i>
+																</span>
+                                                        </span>
+                                                        <span class="task-label" contenteditable="true">Private chat module</span>
+                                                        <span class="task-action-btn task-btn-right">
+																<span class="action-circle large" title="Assign">
+																	<i class="material-icons">person_add</i>
+																</span>
+                                                        <span class="action-circle large delete-btn" title="Delete Task">
+																	<i class="material-icons">delete</i>
+																</span>
+                                                        </span>
+                                                    </div>
+                                                </li>
+                                                <li class="task">
+                                                    <div class="task-container">
+                                                        <span class="task-action-btn task-check">
+																<span class="action-circle large complete-btn" title="Mark Complete">
+																	<i class="material-icons">check</i>
+																</span>
+                                                        </span>
+                                                        <span class="task-label" contenteditable="true">Patient Profile add</span>
+                                                        <span class="task-action-btn task-btn-right">
+																<span class="action-circle large" title="Assign">
+																	<i class="material-icons">person_add</i>
+																</span>
+                                                        <span class="action-circle large delete-btn" title="Delete Task">
+																	<i class="material-icons">delete</i>
+																</span>
+                                                        </span>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="task-list-footer">
+                                            <div class="new-task-wrapper">
+                                                <textarea id="new-task" placeholder="Enter new task here. . ."></textarea>
+                                                <span class="error-message hidden">You need to enter a task first</span>
+                                                <span class="add-new-task-btn btn" id="add-task">Add Task</span>
+                                                <span class="cancel-btn btn" id="close-task-panel">Close</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="panel panel-table panel-table-top">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Invoices</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    <table class="table table-striped custom-table m-b-0">
+                                        <thead>
+                                            <tr>
+                                                <th>Invoice ID</th>
+                                                <th>Client</th>
+                                                <th>Due Date</th>
+                                                <th>Total</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><a href="invoice-view.html">#INV-0001</a></td>
+                                                <td>
+                                                    <h2><a href="#">Hazel Nutt</a></h2>
+                                                </td>
+                                                <td>8 Aug 2017</td>
+                                                <td>$380</td>
+                                                <td>
+                                                    <span class="label label-warning-border">Partially Paid</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><a href="invoice-view.html">#INV-0002</a></td>
+                                                <td>
+                                                    <h2><a href="#">Paige Turner</a></h2>
+                                                </td>
+                                                <td>17 Sep 2017</td>
+                                                <td>$500</td>
+                                                <td>
+                                                    <span class="label label-success-border">Paid</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><a href="invoice-view.html">#INV-0003</a></td>
+                                                <td>
+                                                    <h2><a href="#">Ben Dover</a></h2>
+                                                </td>
+                                                <td>30 Nov 2017</td>
+                                                <td>$60</td>
+                                                <td>
+                                                    <span class="label label-danger-border">Unpaid</span>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="panel-footer">
+                                <a href="invoices.html" class="text-primary">View all invoices</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+            
+       
+    {% endblock %}
