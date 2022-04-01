@@ -5,50 +5,23 @@
             <div class="content container-fluid">
                 <div class="row">
                     <div class="col-xs-4">
-                        <h4 class="page-title">Employee</h4>
+                        <h4 class="page-title">Employees</h4>
                     </div>
                     <div class="col-xs-8 text-right m-b-20">
                         <a href="#" class="btn btn-primary rounded pull-right" data-toggle="modal" data-target="#add_employee"><i class="fa fa-plus"></i> Add Employee</a>
                         <div class="view-icons">
-                            <a href="employees.html" class="grid-view btn btn-link active"><i class="fa fa-th"></i></a>
-                            <a href="employees-list.html" class="list-view btn btn-link"><i class="fa fa-bars"></i></a>
+                            <a href="#" class="grid-view btn btn-link active"><i class="fa fa-th"></i></a>
+                            <a href="#" class="list-view btn btn-link"><i class="fa fa-bars"></i></a>
                         </div>
                     </div>
                 </div>
-                <div class="row filter-row">
-                    <div class="col-sm-3 col-xs-6">
-                        <div class="form-group form-focus">
-                            <label class="control-label">Employee ID</label>
-                            <input type="text" class="form-control floating">
-                        </div>
-                    </div>
-                    <div class="col-sm-3 col-xs-6">
-                        <div class="form-group form-focus">
-                            <label class="control-label">Employee Name</label>
-                            <input type="text" class="form-control floating">
-                        </div>
-                    </div>
-                    <div class="col-sm-3 col-xs-6">
-                        <div class="form-group form-focus select-focus">
-                            <label class="control-label">Designation</label>
-                            <select class="select floating">
-                                <option>Select Designation</option>
-                                <option>Web Developer</option>
-                                <option>Web Designer</option>
-                                <option>Android Developer</option>
-                                <option>Ios Developer</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-sm-3 col-xs-6">
-                        <a href="#" class="btn btn-success btn-block"> Search </a>
-                    </div>
-                </div>
+                
                 <div class="row staff-grid-row">
+                    {% for emp in employees %}
                     <div class="col-md-4 col-sm-4 col-xs-6 col-lg-3">
                         <div class="profile-widget">
                             <div class="profile-img">
-                                <a href="profile.html"><img class="avatar" src="assets/img/user.jpg" alt=""></a>
+                                <a href="#" class=><img class="avatar" src="{% static '/img/user.jpg' %}" alt=""></a>
                             </div>
                             <div class="dropdown profile-action">
                                 <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
@@ -57,186 +30,13 @@
                                     <li><a href="#" data-toggle="modal" data-target="#delete_employee"><i class="fa fa-trash-o m-r-5"></i> Delete</a></li>
                                 </ul>
                             </div>
-                            <h4 class="user-name m-t-10 m-b-0 text-ellipsis"><a href="profile.html">John Doe</a></h4>
-                            <div class="small text-muted">Web Designer</div>
+                            <h4 class="user-name m-t-10 m-b-0 text-ellipsis"><a href="#">{{emp.first_name}} {{emp.last_name}}</a></h4>
+                            <div class="small text-muted">{{emp.department}}</div>
                         </div>
                     </div>
-                    <div class="col-md-4 col-sm-4 col-xs-6 col-lg-3">
-                        <div class="profile-widget">
-                            <div class="profile-img">
-                                <a href="profile.html" class="avatar">R</a>
-                            </div>
-                            <div class="dropdown profile-action">
-                                <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-                                <ul class="dropdown-menu pull-right">
-                                    <li><a href="#" data-toggle="modal" data-target="#edit_employee"><i class="fa fa-pencil m-r-5"></i> Edit</a></li>
-                                    <li><a href="#" data-toggle="modal" data-target="#delete_employee"><i class="fa fa-trash-o m-r-5"></i> Delete</a></li>
-                                </ul>
-                            </div>
-                            <h4 class="user-name m-t-10 m-b-0 text-ellipsis"><a href="profile.html">Richard Miles</a></h4>
-                            <div class="small text-muted">Web Developer</div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-sm-4 col-xs-6 col-lg-3">
-                        <div class="profile-widget">
-                            <div class="profile-img">
-                                <a href="profile.html" class="avatar">J</a>
-                            </div>
-                            <div class="dropdown profile-action">
-                                <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-                                <ul class="dropdown-menu pull-right">
-                                    <li><a href="#" data-toggle="modal" data-target="#edit_employee"><i class="fa fa-pencil m-r-5"></i> Edit</a></li>
-                                    <li><a href="#" data-toggle="modal" data-target="#delete_employee"><i class="fa fa-trash-o m-r-5"></i> Delete</a></li>
-                                </ul>
-                            </div>
-                            <h4 class="user-name m-t-10 m-b-0 text-ellipsis"><a href="profile.html">John Smith</a></h4>
-                            <div class="small text-muted">Android Developer</div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-sm-4 col-xs-6 col-lg-3">
-                        <div class="profile-widget">
-                            <div class="profile-img">
-                                <a href="profile.html" class="avatar">M</a>
-                            </div>
-                            <div class="dropdown profile-action">
-                                <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-                                <ul class="dropdown-menu pull-right">
-                                    <li><a href="#" data-toggle="modal" data-target="#edit_employee"><i class="fa fa-pencil m-r-5"></i> Edit</a></li>
-                                    <li><a href="#" data-toggle="modal" data-target="#delete_employee"><i class="fa fa-trash-o m-r-5"></i> Delete</a></li>
-                                </ul>
-                            </div>
-                            <h4 class="user-name m-t-10 m-b-0 text-ellipsis"><a href="profile.html">Mike Litorus</a></h4>
-                            <div class="small text-muted">IOS Developer</div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-sm-4 col-xs-6 col-lg-3">
-                        <div class="profile-widget">
-                            <div class="profile-img">
-                                <a href="profile.html" class="avatar">W</a>
-                            </div>
-                            <div class="dropdown profile-action">
-                                <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-                                <ul class="dropdown-menu pull-right">
-                                    <li><a href="#" data-toggle="modal" data-target="#edit_employee"><i class="fa fa-pencil m-r-5"></i> Edit</a></li>
-                                    <li><a href="#" data-toggle="modal" data-target="#delete_employee"><i class="fa fa-trash-o m-r-5"></i> Delete</a></li>
-                                </ul>
-                            </div>
-                            <h4 class="user-name m-t-10 m-b-0 text-ellipsis"><a href="profile.html">Wilmer Deluna</a></h4>
-                            <div class="small text-muted">Team Leader</div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-sm-4 col-xs-6 col-lg-3">
-                        <div class="profile-widget">
-                            <div class="profile-img">
-                                <a href="profile.html" class="avatar">J</a>
-                            </div>
-                            <div class="dropdown profile-action">
-                                <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-                                <ul class="dropdown-menu pull-right">
-                                    <li><a href="#" data-toggle="modal" data-target="#edit_employee"><i class="fa fa-pencil m-r-5"></i> Edit</a></li>
-                                    <li><a href="#" data-toggle="modal" data-target="#delete_employee"><i class="fa fa-trash-o m-r-5"></i> Delete</a></li>
-                                </ul>
-                            </div>
-                            <h4 class="user-name m-t-10 m-b-0 text-ellipsis"><a href="profile.html">Jeffrey Warden</a></h4>
-                            <div class="small text-muted">Web Developer</div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-sm-4 col-xs-6 col-lg-3">
-                        <div class="profile-widget">
-                            <div class="profile-img">
-                                <a href="profile.html" class="avatar">B</a>
-                            </div>
-                            <div class="dropdown profile-action">
-                                <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-                                <ul class="dropdown-menu pull-right">
-                                    <li><a href="#" data-toggle="modal" data-target="#edit_employee"><i class="fa fa-pencil m-r-5"></i> Edit</a></li>
-                                    <li><a href="#" data-toggle="modal" data-target="#delete_employee"><i class="fa fa-trash-o m-r-5"></i> Delete</a></li>
-                                </ul>
-                            </div>
-                            <h4 class="user-name m-t-10 m-b-0 text-ellipsis"><a href="profile.html">Bernardo Galaviz</a></h4>
-                            <div class="small text-muted">Web Developer</div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-sm-4 col-xs-6 col-lg-3">
-                        <div class="profile-widget">
-                            <div class="profile-img">
-                                <a href="profile.html" class="avatar">L</a>
-                            </div>
-                            <div class="dropdown profile-action">
-                                <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-                                <ul class="dropdown-menu pull-right">
-                                    <li><a href="#" data-toggle="modal" data-target="#edit_employee"><i class="fa fa-pencil m-r-5"></i> Edit</a></li>
-                                    <li><a href="#" data-toggle="modal" data-target="#delete_employee"><i class="fa fa-trash-o m-r-5"></i> Delete</a></li>
-                                </ul>
-                            </div>
-                            <h4 class="user-name m-t-10 m-b-0 text-ellipsis"><a href="profile.html">Lesley Grauer</a></h4>
-                            <div class="small text-muted">Team Leader</div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-sm-4 col-xs-6 col-lg-3">
-                        <div class="profile-widget">
-                            <div class="profile-img">
-                                <a href="profile.html" class="avatar">J</a>
-                            </div>
-                            <div class="dropdown profile-action">
-                                <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-                                <ul class="dropdown-menu pull-right">
-                                    <li><a href="#" data-toggle="modal" data-target="#edit_employee"><i class="fa fa-pencil m-r-5"></i> Edit</a></li>
-                                    <li><a href="#" data-toggle="modal" data-target="#delete_employee"><i class="fa fa-trash-o m-r-5"></i> Delete</a></li>
-                                </ul>
-                            </div>
-                            <h4 class="user-name m-t-10 m-b-0 text-ellipsis"><a href="profile.html">Jeffery Lalor</a></h4>
-                            <div class="small text-muted">Team Leader</div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-sm-4 col-xs-6 col-lg-3">
-                        <div class="profile-widget">
-                            <div class="profile-img">
-                                <a href="profile.html" class="avatar">L</a>
-                            </div>
-                            <div class="dropdown profile-action">
-                                <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-                                <ul class="dropdown-menu pull-right">
-                                    <li><a href="#" data-toggle="modal" data-target="#edit_employee"><i class="fa fa-pencil m-r-5"></i> Edit</a></li>
-                                    <li><a href="#" data-toggle="modal" data-target="#delete_employee"><i class="fa fa-trash-o m-r-5"></i> Delete</a></li>
-                                </ul>
-                            </div>
-                            <h4 class="user-name m-t-10 m-b-0 text-ellipsis"><a href="profile.html">Loren Gatlin</a></h4>
-                            <div class="small text-muted">Android Developer</div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-sm-4 col-xs-6 col-lg-3">
-                        <div class="profile-widget">
-                            <div class="profile-img">
-                                <a href="profile.html" class="avatar">T</a>
-                            </div>
-                            <div class="dropdown profile-action">
-                                <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-                                <ul class="dropdown-menu pull-right">
-                                    <li><a href="#" data-toggle="modal" data-target="#edit_employee"><i class="fa fa-pencil m-r-5"></i> Edit</a></li>
-                                    <li><a href="#" data-toggle="modal" data-target="#delete_employee"><i class="fa fa-trash-o m-r-5"></i> Delete</a></li>
-                                </ul>
-                            </div>
-                            <h4 class="user-name m-t-10 m-b-0 text-ellipsis"><a href="profile.html">Tarah Shropshire</a></h4>
-                            <div class="small text-muted">Android Developer</div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-sm-4 col-xs-6 col-lg-3">
-                        <div class="profile-widget">
-                            <div class="profile-img">
-                                <a href="profile.html" class="avatar">C</a>
-                            </div>
-                            <div class="dropdown profile-action">
-                                <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-                                <ul class="dropdown-menu pull-right">
-                                    <li><a href="#" data-toggle="modal" data-target="#edit_employee"><i class="fa fa-pencil m-r-5"></i> Edit</a></li>
-                                    <li><a href="#" data-toggle="modal" data-target="#delete_employee"><i class="fa fa-trash-o m-r-5"></i> Delete</a></li>
-                                </ul>
-                            </div>
-                            <h4 class="user-name m-t-10 m-b-0 text-ellipsis"><a href="profile.html">Catherine Manseau</a></h4>
-                            <div class="small text-muted">Android Developer</div>
-                        </div>
-                    </div>
+                    {% endfor %}
+                    
+                   
                 </div>
             </div>
             
@@ -248,87 +48,86 @@
                         <h4 class="modal-title">Add Employee</h4>
                     </div>
                     <div class="modal-body">
-                        <form class="m-b-30">
+                        {% include 'messages.html' %}
+                        <form  method="post" action="{% url 'employees' %}">
+                            {% csrf_token %}
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label class="control-label">First Name <span class="text-danger">*</span></label>
-                                        <input class="form-control" type="text">
+                                        <input class="form-control" type="text" required name="first_name">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label class="control-label">Last Name</label>
-                                        <input class="form-control" type="text">
+                                        <input class="form-control" type="text" required name="last_name">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label class="control-label">Username <span class="text-danger">*</span></label>
-                                        <input class="form-control" type="text">
+                                        <input class="form-control" type="text" required name="username">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label class="control-label">Email <span class="text-danger">*</span></label>
-                                        <input class="form-control" type="email">
+                                        <input class="form-control" type="email" name="email" required>
                                     </div>
                                 </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label class="control-label">Password</label>
-                                        <input class="form-control" type="password">
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label class="control-label">Confirm Password</label>
-                                        <input class="form-control" type="password">
-                                    </div>
-                                </div>
+                            
+                                
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label class="control-label">Employee ID <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control">
+                                        <input type="text" class="form-control" required name="employeeReg_Id">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label class="control-label">Joining Date <span class="text-danger">*</span></label>
+                                        <label class="control-label">Address <span class="text-danger">*</span></label>
                                         <div class="cal-icon">
-                                            <input class="form-control datetimepicker" type="text">
+                                            <input class="form-control" type="text" name="address" required>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label class="control-label">Phone </label>
-                                        <input class="form-control" type="text">
+                                        <label class="control-label">Office Phone </label>
+                                        <input class="form-control" type="text" required name="phone">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Mobile</label>
+                                        <input class="form-control" type="text"  required name="mobile" >
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label class="control-label">Company</label>
-                                        <select class="select">
-                                            <option>Global Technologies</option>
-                                            <option>Delta Infotech</option>
+                                        <select class="select" required name="company">
+                                            {% for company in companies %}
+                                            <option>{{company.company_name}}</option>
+                                           {% endfor %}
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label class="control-label">Designation</label>
-                                        <select class="select">
-                                            <option>Web Developer</option>
-                                            <option>Web Designer</option>
-                                            <option>SEO Analyst</option>
+                                        <label class="control-label">Department</label>
+                                        <select class="select" required name="department">
+                                            {% for dep in departments %}
+                                            <option>{{dep.department_name}}</option>
+                                            {% endfor%}
                                         </select>
                                     </div>
                                 </div>
                             </div>
                            
                             <div class="m-t-20 text-center">
-                                <button class="btn btn-primary btn-lg">Create Employee</button>
+                                <button class="btn btn-primary btn-lg" type="submit">Create Employee</button>
                             </div>
                         </form>
                     </div>

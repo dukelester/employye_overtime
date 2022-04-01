@@ -20,13 +20,23 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Department Name</th>
+                                        <th>Employees</th>
+                                        <th>Minimum Salary</th>
+                                        <th>Maximum Salary</th>
+                                        
+                                        <th>Overtime Per Hour</th>
                                         <th class="text-right">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    {%  for depart in departments %}
                                     <tr>
-                                        <td>1</td>
-                                        <td>Web Development</td>
+                                        <td>{{forloop.counter}}</td>
+                                        <td>{{depart.department_name}}</td>
+                                        <td>{{depart.number_of_employees}}</td>
+                                        <td>{{depart.minimum_salary}}</td>
+                                        <td>{{depart.maximum_salary}}</td>
+                                        <td>{{depart.overtime_pay_perhour}}</td>
                                         <td class="text-right">
                                             <div class="dropdown">
                                                 <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
@@ -37,6 +47,7 @@
                                             </div>
                                         </td>
                                     </tr>
+                                    {% endfor %}
                                     
                                 </tbody>
                             </table>

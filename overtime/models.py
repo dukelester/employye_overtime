@@ -26,7 +26,7 @@ class Company(models.Model):
         verbose_name_plural = "Companies"
         
 class Departments(models.Model):
-    company = models.ForeignKey(Company, on_delete=models.CASCADE)
+    company = models.CharField(max_length=255)
     department_name = models.CharField(max_length=255)
     number_of_employees = models.IntegerField()
     minimum_salary = models.DecimalField(max_digits=10, decimal_places=0)
@@ -43,8 +43,9 @@ class Departments(models.Model):
         verbose_name_plural = "Departments"
         
 class Employee(models.Model):
-    department = models.ForeignKey(Departments, on_delete=models.CASCADE)
-    employee = models.OneToOneField(User, on_delete=models.CASCADE)
+    company = models.CharField(max_length=200)
+    department =  models.CharField(max_length=180)
+    employee = models.OneToOneField(User,related_name="employee", on_delete=models.CASCADE)
     email = models.EmailField(max_length=65, unique=True, verbose_name='email')
     username = models.CharField(max_length=40, unique=True)
     phone = models.CharField(max_length=15, unique=True)
@@ -52,6 +53,9 @@ class Employee(models.Model):
     address = models.CharField(max_length=200, blank=True)
     first_name = models.CharField(max_length=200, blank=True)
     last_name = models.CharField(max_length=200, blank=True)
+    employeeReg_Id = models.CharField(max_length=200)
+    is_email_verified = models.BooleanField(default=False)
+    
     
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=True)
@@ -61,19 +65,19 @@ class Employee(models.Model):
     class Meta:
         verbose_name = "Employee"
         verbose_name_plural = "Employees"
-class Overtime(models.Model):
-    employee = models.ForeignKey(Employee, on_delete=models.CASCADE)   
-    overtime_date = models.DateField()
-    overtime_hours = models.IntegerField()
-    description = models.TextField()
-    overtime_pay = models.DecimalField(max_digits=10, decimal_places=0)
-    created_at = models.DateTimeField(auto_now_add=True)
+# class Overtime(models.Model):
+#     my_employee = models.ForeignKey(Employee, on_delete=models.CASCADE)   
+#     overtime_date = models.DateField()
+#     overtime_hours = models.IntegerField()
+#     description = models.TextField()
+#     overtime_pay = models.DecimalField(max_digits=10, decimal_places=0)
+#     created_at = models.DateTimeField(auto_now_add=True)
     
-    def __str__(self):
-        return self.description  
-    class Meta:
-        verbose_name = "Over Time"
-        verbose_name_plural = "Over Time"
+#     def __str__(self):
+#         return self.description  
+#     class Meta:
+#         verbose_name = "Over Time"
+#         verbose_name_plural = "Over Time"
     
 
     

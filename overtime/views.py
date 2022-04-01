@@ -1,8 +1,15 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+
+from authentication.views import send_activation_email
 # Create your views here.
-from . models import Company,Departments
+from . models import Company,Departments, Employee
+from django.core.mail import EmailMessage
+from django.contrib.auth import get_user_model
+# Create your models here.
+
+User = get_user_model()
 def pageNotFound(request, exception, template_name='error404.html'):
     response = render(request, template_name)
     response.status_code = 404
@@ -26,8 +33,11 @@ def addEmployView(request):
     return render(request, 'company.html')
 @login_required(login_url='login')
 def addDepartmentView(request):
-    company = Company.objects.all()
-    print(company, 'asdfghjkl;lkjhgfdsdfghj')
+    context = {}
+    context['company'] = Company.objects.all()
+    departments = Departments.objects.all()
+    
+    context['departments'] = departments
     if request.method == 'POST':
         department = Departments(
             company = request.POST.get('company'),
@@ -42,20 +52,76 @@ def addDepartmentView(request):
         messages.add_message(request, messages.SUCCESS, "Company Details Updated Successfully")
         
         if department:
-            return redirect('homepage')
+            return redirect('departments')
             
             
     
-    return render(request, 'departments.html', {"company":company})
+    return render(request, 'departments.html', context)
 
 @login_required(login_url='login')
 def addEmployeeView(request):
-    return render(request, 'employees.html')
+    context = {}
+    companies = Company.objects.all()
+    departments = Departments.objects.all()
+    context['companies'] = companies
+    context['departments'] = departments
+    context['employees'] = Employee.objects.all()
+    if request.method == 'POST':
+        email = request.POST.get('email'),
+        username = request.POST.get('username'),
+        phone = request.POST.get('phone'),
+        mobile = request.POST.get('mobile'),
+        address = request.POST.get('address'),
+        first_name = request.POST.get('first_name'),
+        last_name = request.POST.get('last_name'),
+       
+        
+        phone_exists = User.objects.filter(phone=phone).exists()
+        email_exist = User.objects.filter(email=email).exists()
+        username_exist = User.objects.filter(username=username).exists()
+        if phone_exists:
+            messages.add_message(
+            request, messages.ERROR, "The Phone Has Been Taken!")
+            return render(request, 'employees.html', context)
+        if email_exist:
+            messages.add_message(
+            request, messages.ERROR, "The Email Has Been Taken!")
+            return render(request, 'employees.html', context)
+        if username_exist:
+            messages.add_message(
+            request, messages.ERROR, "The Username Has Been Taken!")
+            return render(request, 'employees.html', context)
+        new_employee = Employee (
+            company = request.POST.get('company'),
+            department = request.POST.get('department'),
+            employee = User.objects.create_user(
+                email=email, username=email, phone=phone,password="Employee2022"),
+            email = request.POST.get('email'),
+            username = request.POST.get('username'),
+            phone = request.POST.get('phone'),
+            mobile = request.POST.get('mobile'),
+            address = request.POST.get('address'),
+            first_name = request.POST.get('first_name'),
+            last_name = request.POST.get('last_name'),
+            employeeReg_Id = request.POST.get('employeeReg_Id'),
+        )
+        new_employee.save()
+        print("company details added successfully")
+        #send the email for password and user name
+        send_activation_email(new_employee, request) #activation email
+        
+        
+        messages.add_message(request, messages.SUCCESS, "Employee Details Added Successfully")
+        
+    return render(request, 'employees.html', context)
 @login_required(login_url='login')
 def companySettingsView(request):
     if request.method == 'POST':
+        company_name = request.POST.get('company_name')
+        get_company = Company.objects.get(company_name=company_name)
+        print(get_company, 'gotttttttttttttt')
         my_company = Company (
-            company_name = request.POST.get('company_name'),
+            company_name = get_company,
             contact_person = request.POST.get('contact_person'),
             company_email = request.POST.get('company_email'),
             description = request.POST.get('description'),

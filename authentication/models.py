@@ -9,7 +9,7 @@ class MyAccountManager(BaseUserManager):
         if email is None:
             raise TypeError("The user must have a valid Email!")
 
-        user = self.model(username=username, email=self.normalize_email(email),
+        user = self.model(username=username, email=email,
             phone = phone)
         user.phone = phone
         user.set_password(password)
@@ -34,7 +34,6 @@ class MyAccountManager(BaseUserManager):
         user.is_admin = True
         user.is_staff = True
         user.is_superuser = True
-        
 
         user.save(using=self._db)
         return user
