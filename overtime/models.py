@@ -4,6 +4,7 @@ from django.contrib.auth import get_user_model
 
 User = get_user_model()
 class Company(models.Model):
+    Hr = models.ForeignKey(User, on_delete=models.CASCADE)
     company_name = models.CharField(max_length=255)
     contact_person = models.CharField(max_length=255)
     company_email = models.EmailField()
@@ -26,6 +27,7 @@ class Company(models.Model):
         verbose_name_plural = "Companies"
         
 class Departments(models.Model):
+    Hr = models.ForeignKey(User, on_delete=models.CASCADE)
     company = models.CharField(max_length=255)
     department_name = models.CharField(max_length=255)
     number_of_employees = models.IntegerField()
@@ -43,6 +45,7 @@ class Departments(models.Model):
         verbose_name_plural = "Departments"
         
 class Employee(models.Model):
+    Hr = models.ForeignKey(User, related_name="hr", on_delete=models.CASCADE)
     company = models.CharField(max_length=200)
     department =  models.CharField(max_length=180)
     employee = models.OneToOneField(User,related_name="employee", on_delete=models.CASCADE)

@@ -35,9 +35,9 @@ def homepageView(request):
     elif request.user.is_hr:
         #data view 
        
-        departments = Departments.objects.all()
+        departments = Departments.objects.filter(Hr=request.user)
         context['departments'] = departments.count()
-        context['employees'] = Employee.objects.all().count()
+        context['employees'] = Employee.objects.filter(Hr=request.user).count()
         hours = Overtime.objects.filter(approved_by=request.user).aggregate(Sum("overtime_hours"))
         total_overtime = Overtime.objects.filter(approved_by=request.user).aggregate(Sum("total"))
         print(hours, 'hhhhhhhhhhhhhhhhhhhh',total_overtime)
@@ -79,7 +79,7 @@ def addDepartmentView(request):
     if request.user.is_hr:
         context = {}
         context['company'] = Company.objects.all()
-        departments = Departments.objects.all()
+        departments = Departments.objects.filter(Hr=request.user)
         
         context['departments'] = departments
         if request.method == 'POST':
@@ -90,6 +90,7 @@ def addDepartmentView(request):
                 minimum_salary = request.POST.get('minimum_salary'),
                 maximum_salary = request.POST.get('maximum_salary'),
                 overtime_pay_perhour = request.POST.get('overtime_pay_perhour'),
+                Hr=request.user
                 
             )
             department.save()
@@ -107,10 +108,10 @@ def addEmployeeView(request):
     if request.user.is_hr:
         context = {}
         companies = Company.objects.all()
-        departments = Departments.objects.all()
+        departments = Departments.objects.filter(Hr=request.user)
         context['companies'] = companies
         context['departments'] = departments
-        context['employees'] = Employee.objects.all()
+        context['employees'] = Employee.objects.filter(Hr=request.user)
         if request.method == 'POST':
             email = request.POST.get('email')
             username = request.POST.get('username')
@@ -132,6 +133,7 @@ def addEmployeeView(request):
                 request, messages.ERROR, "The Username Has Been Taken!")
                 return render(request, 'employees.html', context)
             new_employee = Employee (
+                Hr = request.user,
                 company = request.POST.get('company'),
                 department = request.POST.get('department'),
                 employee = User.objects.create_user(
@@ -169,11 +171,9 @@ def addEmployeeView(request):
 def companySettingsView(request):
     if request.user.is_hr:
         if request.method == 'POST':
-            company_name = request.POST.get('company_name')
-            get_company = Company.objects.get(company_name=company_name)
-            print(get_company, 'gotttttttttttttt')
             my_company = Company (
-                company_name = get_company,
+                Hr = request.user,
+                company_name = request.POST.get('company_name'),
                 contact_person = request.POST.get('contact_person'),
                 company_email = request.POST.get('company_email'),
                 description = request.POST.get('description'),
@@ -199,7 +199,7 @@ def companySettingsView(request):
             
             return render(request, 'settings.html')
         else:
-            company = Company.objects.all().order_by('-created_at').first()
+            company = Company.objects.filter(Hr=request.user).order_by('-created_at').first()
             print(company, 'asdfghjkl;lkjhgfdsdfghj')
             
             return render(request, 'settings.html', {'company':company})
@@ -210,8 +210,8 @@ def companySettingsView(request):
 def addOverTimeView(request):
     if request.user.is_hr:
         context = {}
-        context['overtime'] = Overtime.objects.all()
-        context['employees'] = Employee.objects.all()
+        context['overtime'] = Overtime.objects.filter(approved_by=request.user)
+        context['employees'] = Employee.objects.filter(Hr=request.user)
         if request.method == 'POST':
             my_employee = request.POST.get('my_employee')
             overtime_date = request.POST.get('overtime_date')
