@@ -36,7 +36,7 @@
                                     <tr>
                                         <td>
                                             <a href="#" class="avatar">J</a>
-                                            <h2><a href="#">{{Ot.my_employee.first_name}} {{Ot.my_employee.last_name}} <span>Web Designer</span></a></h2>
+                                            <h2><a href="#">{{Ot.my_employee.first_name}} {{Ot.my_employee.last_name}} <span>{{Ot.my_employee.department}}</span></a></h2>
                                         </td>
                                         <td>{{Ot.overtime_date}}</td>
                                         <td>{{Ot.overtime_hours}}</td>
@@ -62,85 +62,66 @@
                     </div>
                     <div class="modal-body">
                         {% include 'messages.html' %}
-                        <form  method="post" action="{% url 'employees' %}">
+                        <form  method="post" action="{% url 'overTime' %}">
                             {% csrf_token %}
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label class="control-label">First Name <span class="text-danger">*</span></label>
-                                        <input class="form-control" type="text" required name="first_name">
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label class="control-label">Last Name</label>
-                                        <input class="form-control" type="text" required name="last_name">
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label class="control-label">Username <span class="text-danger">*</span></label>
-                                        <input class="form-control" type="text" required name="username">
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label class="control-label">Email <span class="text-danger">*</span></label>
-                                        <input class="form-control" type="email" name="email" required>
-                                    </div>
-                                </div>
-                            
-                                
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label class="control-label">Employee ID <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" required name="employeeReg_Id">
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label class="control-label">Address <span class="text-danger">*</span></label>
-                                        <div class="cal-icon">
-                                            <input class="form-control" type="text" name="address" required>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label class="control-label">Office Phone </label>
-                                        <input class="form-control" type="text" required name="phone">
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label class="control-label">Mobile</label>
-                                        <input class="form-control" type="text"  required name="mobile" >
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label class="control-label">Company</label>
-                                        <select class="select" required name="company">
-                                            {% for company in companies %}
-                                            <option>{{company.company_name}}</option>
+                                        <label class="control-label">Select Employee</label>
+                                        <select class="select" required name="my_employee">
+                                            {% for emp in employees %}
+                                            <option>{{emp.email}}</option>
                                            {% endfor %}
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label class="control-label">Department</label>
-                                        <select class="select" required name="department">
-                                            {% for dep in departments %}
-                                            <option>{{dep.department_name}}</option>
-                                            {% endfor%}
+                                        <label class="control-label">Overtime Date <span class="text-danger">*</span></label>
+                                        <input class="form-control" type="date" required name="overtime_date">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Overtime Hours</label>
+                                        <input class="form-control" type="number" required name="overtime_hours">
+                                    </div>
+                                </div>
+                                 <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Select Overtime Type</label>
+                                        <select class="select" required name="overtime_type">
+                                          
+                                        <option>select overtime type</option>
+                                            <option>Compulsory overtime</option>
+                                            <option>Voluntary overtime</option>
+                                            <option>Non-guaranteed overtimee</option>
+                                            <option>Time off in lieu</option>
+                                            <option>Temporary Workerse</option>
+                                            <option>Other</option>
+                                        
                                         </select>
                                     </div>
                                 </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Overtime Rate <span class="text-danger">*</span></label>
+                                        <input class="form-control" type="text" name="overtime_pay" required>
+                                    </div>
+                                </div>
+                            
+                                
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Description <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" required name="description" placeholder="Reason or short description of overtime">
+                                    </div>
+                                </div>
+
                             </div>
                            
                             <div class="m-t-20 text-center">
-                                <button class="btn btn-primary btn-lg" type="submit">Create Employee</button>
+                                <button class="btn btn-primary btn-lg" type="submit">Create Overtime</button>
                             </div>
                         </form>
                     </div>

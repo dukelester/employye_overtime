@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from authentication.models import Account
-
+from django.db.models import Sum
 from authentication.views import send_activation_email
 # Create your views here.
 from . models import Company,Departments, Employee, Overtime
@@ -27,7 +27,18 @@ def CalenderView(request):
     return render(request,'calendar.html')
 @login_required(login_url='login')
 def homepageView(request):
-    return render(request, 'index.html')
+    #data view 
+    context = {}
+    departments = Departments.objects.all()
+    context['departments'] = departments.count()
+    context['employees'] = Employee.objects.all().count()
+    hours = Overtime.objects.filter(approved_by=request.user).aggregate(Sum("overtime_hours"))
+    total_overtime = Overtime.objects.filter(approved_by=request.user).aggregate(Sum("total"))
+    print(hours, 'hhhhhhhhhhhhhhhhhhhh',total_overtime)
+    context['overtime_hours'] = hours['overtime_hours__sum']
+    context['total_overtime'] = total_overtime['total__sum']
+    
+    return render(request, 'index.html', context)
 
 @login_required(login_url='login')
 def addEmployView(request):
@@ -157,8 +168,36 @@ def companySettingsView(request):
         
         return render(request, 'settings.html', {'company':company})
     
-    
+
+@login_required(login_url='login')
 def addOverTimeView(request):
     context = {}
     context['overtime'] = Overtime.objects.all()
+    context['employees'] = Employee.objects.all()
+    if request.method == 'POST':
+        my_employee = request.POST.get('my_employee')
+        overtime_date = request.POST.get('overtime_date')
+        overtime_hours = request.POST.get('overtime_hours')
+        description = request.POST.get('description')
+        overtime_type = request.POST.get('overtime_type')
+        overtime_pay = request.POST.get('overtime_pay')
+        total = request.POST.get('total')
+        
+        # print(my_employee, 'empppppppppppp')
+        my_emp = Employee.objects.get(email=my_employee)
+        
+        new_overtime = Overtime(
+            my_employee = my_emp,
+            overtime_date =overtime_date,
+            overtime_hours = overtime_hours,
+            description = description,
+            overtime_type = overtime_type,
+            overtime_pay = overtime_pay,
+            approved_by = request.user
+
+        )
+        #total
+        total = int(overtime_pay) * int(overtime_hours)
+        new_overtime.total = total
+        new_overtime.save()
     return render(request, 'overtime.html', context)
