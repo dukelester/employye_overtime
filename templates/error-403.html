@@ -1,0 +1,36 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static '/img/favicon.png'%}">
+    <title>Employee Manager</title>
+    <link href="https://fonts.googleapis.com/css?family=Fira+Sans:400,500,600,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static '/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static '/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static '/css/fullcalendar.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/dataTables.bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static '/css/select2.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap-datetimepicker.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static '/plugins/morris/morris.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static '/css/style.css' %}">
+</head>
+
+<body>
+    <div class="main-wrapper error-wrapper">
+        <div class="error-box">
+            <h1>403</h1>
+            <h3><i class="fa fa-warning"></i> Oops! Access Denied!</h3>
+            <p style="text-align: center; color:orangered">You don't have permissions to Access or view this page!.</p>
+            <a href="{% url 'homepage' %}" class="btn btn-primary go-home">Go to Home</a>
+        </div>
+    </div>
+    <script type="text/javascript" src="{% static '/js/jquery-3.2.1.min.js' %}"></script>
+    <script type="text/javascript" src="a{% static '/js/bootstrap.min.js' %}"></script>
+</body>
+
+</html>
