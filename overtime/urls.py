@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import (homepageView,CalenderView,addDepartmentView,addDepartmentView,
-                    addEmployeeView,companySettingsView )
+                    addEmployeeView,companySettingsView ,addOverTimeView)
 
 urlpatterns = [
     path("",homepageView, name="homepage"),
@@ -9,6 +9,6 @@ urlpatterns = [
     path('departments', addDepartmentView, name="departments"),
     path('employees',addEmployeeView, name="employees"),
     path('settings', companySettingsView, name="settings"),
-    
+    path('overtime',addOverTimeView, name="overTime"),
     
 ]

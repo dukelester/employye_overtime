@@ -5,7 +5,7 @@ from authentication.models import Account
 
 from authentication.views import send_activation_email
 # Create your views here.
-from . models import Company,Departments, Employee
+from . models import Company,Departments, Employee, Overtime
 from django.core.mail import EmailMessage
 from django.contrib.auth import get_user_model
 # Create your models here.
@@ -156,3 +156,9 @@ def companySettingsView(request):
         print(company, 'asdfghjkl;lkjhgfdsdfghj')
         
         return render(request, 'settings.html', {'company':company})
+    
+    
+def addOverTimeView(request):
+    context = {}
+    context['overtime'] = Overtime.objects.all()
+    return render(request, 'overtime.html', context)

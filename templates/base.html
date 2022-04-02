@@ -84,7 +84,7 @@
                             <li><a href="{% url 'settings' %}">Company Details</a></li>
                             <li><a href="{% url 'departments' %}">Departments</a></li>
                         <li><a href="{% url 'employees' %}">All Employees</a></li>
-                        <li class="title"><a href="#"> Employee OverTime </a></li>
+                        <li class="title"><a href="{% url 'overTime' %}"> Employee OverTime </a></li>
 
                         {% else %}
                         <a href="{% url 'homepage' %}"><i class="fa fa-dashboard"></i> Employee Dashboard</a>
