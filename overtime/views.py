@@ -27,18 +27,44 @@ def CalenderView(request):
     return render(request,'calendar.html')
 @login_required(login_url='login')
 def homepageView(request):
-    #data view 
     context = {}
-    departments = Departments.objects.all()
-    context['departments'] = departments.count()
-    context['employees'] = Employee.objects.all().count()
-    hours = Overtime.objects.filter(approved_by=request.user).aggregate(Sum("overtime_hours"))
-    total_overtime = Overtime.objects.filter(approved_by=request.user).aggregate(Sum("total"))
-    print(hours, 'hhhhhhhhhhhhhhhhhhhh',total_overtime)
-    context['overtime_hours'] = hours['overtime_hours__sum']
-    context['total_overtime'] = total_overtime['total__sum']
-    
-    return render(request, 'index.html', context)
+    if not request.user.is_authenticated:
+        messages.add_message(
+        request, messages.SUCCESS, "Welcome Guest User!")
+        return render(request, 'index.html')
+    elif request.user.is_hr:
+        #data view 
+       
+        departments = Departments.objects.all()
+        context['departments'] = departments.count()
+        context['employees'] = Employee.objects.all().count()
+        hours = Overtime.objects.filter(approved_by=request.user).aggregate(Sum("overtime_hours"))
+        total_overtime = Overtime.objects.filter(approved_by=request.user).aggregate(Sum("total"))
+        print(hours, 'hhhhhhhhhhhhhhhhhhhh',total_overtime)
+        context['overtime_hours'] = hours['overtime_hours__sum']
+        context['total_overtime'] = total_overtime['total__sum']
+        
+   
+        return render(request, 'index.html', context)
+    else:
+        try:
+            context = {}
+            emp = Employee.objects.get(employee=request.user)
+            print(emp, 'meeeeeeeeeeeeeeeeeee')
+            context['first_name'] =emp.first_name
+            context['last_name'] =emp.last_name
+            my_overtime_hours =  Overtime.objects.get(my_employee=emp)
+            context['my_overtime_hours'] = my_overtime_hours.overtime_hours
+            my_total_overtime =  Overtime.objects.get(my_employee=emp)
+            context['my_total_overtime'] = my_total_overtime.total
+            my_day =  Overtime.objects.get(my_employee=emp)
+            context['my_day'] = my_day.overtime_date
+            approved_by = Overtime.objects.get(my_employee=emp)
+            context['approved_by'] = my_day.approved_by
+            
+            return render(request, 'index.html', context)
+        except:
+            return render(request, 'index.html', context)
 
 @login_required(login_url='login')
 def addEmployView(request):
