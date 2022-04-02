@@ -182,33 +182,32 @@ def login_function(request, backend='django.contrib.auth.backends.ModelBackend')
             username = request.POST.get('email')
             password = request.POST.get('password')
             user = authenticate(username=username, password=password)
-            print(username, password)
-            user_exist = User.objects.filter(username=username).exists()
-            print('ertyuiop[yuiop', user_exist, user.password)
+            # print(username, password)
+            # user_exist = User.objects.filter(username=username).exists()
             
-            if user_exist:
-                # return redirect('home')
+            # if user_exist:
+                # return redirect('homepage')
             # email Verification
-                if not user.is_email_verified:
-                    messages.add_message(request, messages.ERROR,
-                                        "Email Is not Verified. Please Check your Mail Box or the Spam Folder.")
-                    return render(request, 'login.html', {})
-                else:
+                # if not user.is_email_verified:
+                #     messages.add_message(request, messages.ERROR,
+                #                         "Email Is not Verified. Please Check your Mail Box or the Spam Folder.")
+                #     return render(request, 'login.html', {})
+                # else:
                     
-                    login(request, user)
+                #     login(request, user)
                     
-                if user is not None and user.is_active:
-                    if user.is_active:
-                        login(request, user,
-                            backend='django.contrib.auth.backends.ModelBackend')
-                        return redirect('homepage')
-                    else:
-                        messages.add_message(
-                    request, messages.ERROR, "Your Account Is Innactive!")
-                        return render(request, 'login.html')
+            if user is not None and user.is_active:
+                if user.is_active:
+                    login(request, user,
+                        backend='django.contrib.auth.backends.ModelBackend')
+                    return redirect('homepage')
                 else:
-                    messages.add_message(request, messages.ERROR, 'Wrong username/Password!')
-                return render(request, 'login.html')
+                    messages.add_message(
+                request, messages.ERROR, "Your Account Is Innactive!")
+                    return render(request, 'login.html')
+            else:
+                messages.add_message(request, messages.ERROR, 'Wrong username/Password!')
+            return render(request, 'login.html')
     return render(request, 'login.html', {})
 @login_required(login_url='login')
 def logout_view(request):

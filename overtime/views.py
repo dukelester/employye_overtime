@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from authentication.models import Account
 
 from authentication.views import send_activation_email
 # Create your views here.
@@ -67,14 +68,9 @@ def addEmployeeView(request):
     context['departments'] = departments
     context['employees'] = Employee.objects.all()
     if request.method == 'POST':
-        email = request.POST.get('email'),
-        username = request.POST.get('username'),
-        phone = request.POST.get('phone'),
-        mobile = request.POST.get('mobile'),
-        address = request.POST.get('address'),
-        first_name = request.POST.get('first_name'),
-        last_name = request.POST.get('last_name'),
-       
+        email = request.POST.get('email')
+        username = request.POST.get('username')
+        phone = request.POST.get('phone')
         
         phone_exists = User.objects.filter(phone=phone).exists()
         email_exist = User.objects.filter(email=email).exists()
@@ -96,20 +92,29 @@ def addEmployeeView(request):
             department = request.POST.get('department'),
             employee = User.objects.create_user(
                 email=email, username=email, phone=phone,password="Employee2022"),
-            email = request.POST.get('email'),
-            username = request.POST.get('username'),
-            phone = request.POST.get('phone'),
+            # email = request.POST.get('email'),
+            # username = request.POST.get('username'),
+            # phone = request.POST.get('phone'),
             mobile = request.POST.get('mobile'),
             address = request.POST.get('address'),
             first_name = request.POST.get('first_name'),
             last_name = request.POST.get('last_name'),
             employeeReg_Id = request.POST.get('employeeReg_Id'),
         )
+        new_employee.email = email
+        new_employee.username = username
+        new_employee.phone = phone
+        new_employee.is_email_verified = True
         new_employee.save()
-        print("company details added successfully")
+        
+        # emp_account = Account.objects.get(username=new_employee.username)
+        # emp_account.is_email_verified = True
+        # emp_account.save()
+        print("employee details added successfully")
         #send the email for password and user name
         send_activation_email(new_employee, request) #activation email
-        
+        print('acvtivation sent')
+  
         
         messages.add_message(request, messages.SUCCESS, "Employee Details Added Successfully")
         

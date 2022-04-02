@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Company, Departments, Employee
+from .models import Company, Departments, Employee, Overtime
 # Register your models here.
 
 class CompanyAdmin(admin.ModelAdmin):
@@ -25,9 +25,9 @@ class EmployeeAdmin(admin.ModelAdmin):
 
 admin.site.register(Employee,EmployeeAdmin)
 
-# class OvertimeAdmin(admin.ModelAdmin):
-#     list_display = ('description', 'overtime_hours', 'overtime_pay', 'overtime_date')
-#     search_fields = ('overtime_pay', 'description',)
-#     readonly_fields = ('id', 'created_at')
+class OvertimeAdmin(admin.ModelAdmin):
+    list_display = ('description', 'overtime_hours', 'overtime_pay', 'overtime_date')
+    search_fields = ('overtime_pay', 'description',)
+    readonly_fields = ('id', 'created_at')
 
-# admin.site.register(Overtime,OvertimeAdmin)
+admin.site.register(Overtime,OvertimeAdmin)

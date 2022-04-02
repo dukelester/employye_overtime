@@ -65,19 +65,21 @@ class Employee(models.Model):
     class Meta:
         verbose_name = "Employee"
         verbose_name_plural = "Employees"
-# class Overtime(models.Model):
-#     my_employee = models.ForeignKey(Employee, on_delete=models.CASCADE)   
-#     overtime_date = models.DateField()
-#     overtime_hours = models.IntegerField()
-#     description = models.TextField()
-#     overtime_pay = models.DecimalField(max_digits=10, decimal_places=0)
-#     created_at = models.DateTimeField(auto_now_add=True)
+class Overtime(models.Model):
+    my_employee = models.ForeignKey(Employee, on_delete=models.CASCADE)   
+    overtime_date = models.DateField()
+    overtime_hours = models.IntegerField()
+    description = models.TextField()
+    overtime_type = models.CharField(max_length=200)
+    approved_by = models.ForeignKey(User, on_delete=models.PROTECT)
+    overtime_pay = models.DecimalField(max_digits=10, decimal_places=0)
+    created_at = models.DateTimeField(auto_now_add=True)
     
-#     def __str__(self):
-#         return self.description  
-#     class Meta:
-#         verbose_name = "Over Time"
-#         verbose_name_plural = "Over Time"
+    def __str__(self):
+        return self.description  
+    class Meta:
+        verbose_name = "Over Time"
+        verbose_name_plural = "Over Time"
     
 
     

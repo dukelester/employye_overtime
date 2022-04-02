@@ -1,16 +1,17 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
-# Create your models here.
 
 class MyAccountManager(BaseUserManager):
-    def create_user(self,email,username,phone,password=None, **kwargs):
+    def create_user(self,email,username, phone,password=None, **kwargs):
         if username is None:
             raise TypeError("The user must have a Username!")
         if email is None:
             raise TypeError("The user must have a valid Email!")
 
-        user = self.model(username=username, email=email,
+        user = self.model(username=username, email=self.normalize_email(email),
+            
             phone = phone)
+       
         user.phone = phone
         user.set_password(password)
         user.save(using=self._db)
@@ -30,10 +31,12 @@ class MyAccountManager(BaseUserManager):
             phone = phone
             
         )
+       
         user.phone = phone
         user.is_admin = True
         user.is_staff = True
         user.is_superuser = True
+        
 
         user.save(using=self._db)
         return user
