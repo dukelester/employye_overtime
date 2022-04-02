@@ -50,17 +50,22 @@ def homepageView(request):
         try:
             context = {}
             emp = Employee.objects.get(employee=request.user)
-            print(emp, 'meeeeeeeeeeeeeeeeeee')
+           
             context['first_name'] =emp.first_name
             context['last_name'] =emp.last_name
-            my_overtime_hours =  Overtime.objects.get(my_employee=emp)
+            my_overtime_hours =  Overtime.objects.filter(my_employee=emp).latest('created_at')
             context['my_overtime_hours'] = my_overtime_hours.overtime_hours
-            my_total_overtime =  Overtime.objects.get(my_employee=emp)
+            my_total_overtime =  Overtime.objects.filter(my_employee=emp).latest('created_at')
             context['my_total_overtime'] = my_total_overtime.total
-            my_day =  Overtime.objects.get(my_employee=emp)
+            total_earnings =  Overtime.objects.filter(my_employee=emp).aggregate(Sum("total"))
+            context['total_earnings'] = total_earnings['total__sum']
+            my_day =  Overtime.objects.filter(my_employee=emp).latest('created_at')
             context['my_day'] = my_day.overtime_date
-            approved_by = Overtime.objects.get(my_employee=emp)
+            approved_by = Overtime.objects.filter(my_employee=emp).latest('created_at')
             context['approved_by'] = my_day.approved_by
+            print(emp, 'meeeeeeeeeeeeeeeeeee',my_overtime_hours,my_total_overtime,my_day)
+            
+            context['overtime'] = Overtime.objects.filter(my_employee=emp).all()
             
             return render(request, 'index.html', context)
         except:
