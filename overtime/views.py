@@ -5,7 +5,7 @@ from authentication.models import Account
 from django.db.models import Sum
 from authentication.views import send_activation_email
 # Create your views here.
-from . models import Company,Departments, Employee, Overtime
+from . models import Company,Departments, Employee, Overtime,RequestedOvertimes
 from django.core.mail import EmailMessage
 from django.contrib.auth import get_user_model
 # Create your models here.
@@ -34,7 +34,6 @@ def homepageView(request):
         return render(request, 'index.html')
     elif request.user.is_hr:
         #data view 
-       
         departments = Departments.objects.filter(Hr=request.user)
         context['departments'] = departments.count()
         context['employees'] = Employee.objects.filter(Hr=request.user).count()
@@ -111,7 +110,7 @@ def addEmployeeView(request):
         departments = Departments.objects.filter(Hr=request.user)
         context['companies'] = companies
         context['departments'] = departments
-        context['employees'] = Employee.objects.filter(Hr=request.user)
+        context['employees'] = Employee.objects.filter(Hr=request.user).order_by('-created_at')
         if request.method == 'POST':
             email = request.POST.get('email')
             username = request.POST.get('username')
@@ -210,8 +209,12 @@ def companySettingsView(request):
 def addOverTimeView(request):
     if request.user.is_hr:
         context = {}
-        context['overtime'] = Overtime.objects.filter(approved_by=request.user)
-        context['employees'] = Employee.objects.filter(Hr=request.user)
+        context['overtime'] = Overtime.objects.filter(approved_by=request.user).order_by('-created_at')
+        context['employees'] = Employee.objects.filter(Hr=request.user).order_by('-created_at')
+
+        get_employees_request = RequestedOvertimes.objects.all()
+        context['requested_overtimes'] = get_employees_request
+
         if request.method == 'POST':
             my_employee = request.POST.get('my_employee')
             overtime_date = request.POST.get('overtime_date')
@@ -238,6 +241,50 @@ def addOverTimeView(request):
             total = int(overtime_pay) * int(overtime_hours)
             new_overtime.total = total
             new_overtime.save()
+            messages.add_message(request, messages.SUCCESS, "Overtime Details added Successfully")
         return render(request, 'overtime.html', context)
     else:
         return render(request, 'error-403.html')
+
+
+def requestForOvertime(request):
+    context = {}
+    employee = request.user
+    my_employer = Employee.objects.get(employee=employee)
+    print(my_employer.Hr)
+
+    my_requested_overtimes = RequestedOvertimes.objects.filter(employee=request.user).order_by('-requested_at').all()  
+    context['my_overtimes'] = my_requested_overtimes
+    context['departments'] = Departments.objects.all()
+    
+    if request.method=='POST':
+        employer=my_employer.Hr
+        employee = request.user
+        overtime_date = request.POST.get('overtime_date')
+        overtime_hours = request.POST.get('overtime_hours')
+        description = request.POST.get('description')
+        overtime_type = request.POST.get('overtime_type')
+
+        
+        requested_overtime = RequestedOvertimes(
+            employer=my_employer.Hr,
+            employee = request.user,
+            overtime_date =overtime_date,
+            overtime_hours = overtime_hours,
+            description = description,
+            overtime_type = overtime_type,
+         
+        )
+        requested_overtime.save()
+        messages.add_message(request, messages.SUCCESS, "Overtime Requested Successfully")
+    return render(request, 'requestovertime.html', context)
+
+def approveNow(request, pk):
+    my_overtime = RequestedOvertimes.objects.get(id=pk)
+    print(my_overtime)
+    if request.method == 'POST':
+        my_overtime.approved = True
+        my_overtime.save()
+        messages.add_message(request, messages.SUCCESS, "Overtime Approved Successfully")
+
+    return redirect('overTime')

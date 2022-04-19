@@ -87,8 +87,22 @@ class Overtime(models.Model):
         verbose_name_plural = "Over Time"
     
 
+class RequestedOvertimes(models.Model):
+    employer = models.ForeignKey(User,on_delete=models.CASCADE, related_name="employer")
+    employee = models.ForeignKey(User,on_delete=models.CASCADE)
+    overtime_date = models.DateField()
+    overtime_hours = models.IntegerField()
+    description = models.TextField()
+    overtime_type = models.CharField(max_length=200)
+    approved = models.BooleanField(default=False)
+    requested_at = models.DateTimeField(auto_now_add=True)
+
     
-    
+    def __str__(self):
+        return self.description  
+    class Meta:
+        verbose_name = "Requested OverTime"
+        verbose_name_plural = "Requested OverTime"
     
 
     

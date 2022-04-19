@@ -19,8 +19,45 @@
                 
               <div class="row">
                     <div class="col-md-12">
+                        <h3> Requested Overtimes </h3>
                         <div class="table-responsive">
                             <table class="table table-striped custom-table datatable">
+                                <thead>
+                                    <tr>
+                        
+                                        <th>Overtime Date</th>
+                                        <th>Overtime Hours</th>
+                                        <th>Description</th>
+                                        <th>Approved</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for Ot in requested_overtimes %}
+                                    <tr>
+                                        </td>
+                                        <td>{{Ot.overtime_date}}</td>
+                                        <td>{{Ot.overtime_hours}}</td>
+                                        <td>{{Ot.description}}</td>
+                        
+                                        {% if Ot.approved %}
+                                        <td>Approved</td>
+                                        {% else %}
+                                        <td>
+                                            <form method="post" action="{% url 'approve_now' Ot.id %}">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="approve">
+                                            <button type="submit" class="btn btn-primary lg-fade">Approve</button></td>
+                                            </form>
+                                        {% endif %}
+                                        
+                                    </tr>
+                                    {% endfor %}
+                        
+                                </tbody>
+                                
+                        <div class="table-responsive">
+                            <table class="table table-striped custom-table datatable">
+                            <h3> Active Overtimes </h3>
                                 <thead>
                                     <tr>
                                         <th style="width:30%;">Name</th>
@@ -62,7 +99,7 @@
                     </div>
                     <div class="modal-body">
                         {% include 'messages.html' %}
-                        <form  method="post" action="{% url 'overTime' %}">
+                        <form  method="post">
                             {% csrf_token %}
                             <div class="row">
                                 <div class="col-sm-6">
@@ -70,7 +107,7 @@
                                         <label class="control-label">Select Employee</label>
                                         <select class="select" required name="my_employee">
                                             {% for emp in employees %}
-                                            <option>{{emp.email}}</option>
+                                            <option value={{emp.email}}>  {{emp.fisrt_name | title}} {{emp.last_name | title}}</option>
                                            {% endfor %}
                                         </select>
                                     </div>

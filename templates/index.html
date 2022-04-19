@@ -35,7 +35,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <divbr class="row">
                     <div class="col-sm-6">
                         <div class="panel task-panel">
                             <div class="panel-heading">
@@ -83,6 +83,13 @@
                 
                     {% else %}
                     <h4>You are logged in as {{first_name | title}} {{last_name | title}} </h4>
+                   <div style="align-items:center">
+                        <button type="button" class="btn btn-warning btn-lg">
+                            <a href="{% url 'request-overtime' %}">
+                                Request Overtime
+                            </a></button>
+                    </div>
+                    <br/><br/>
                     <div class="col-md-6 col-sm-6 col-lg-3">
                         <div class="dash-widget dash-widget5">
                             <span class="dash-widget-icon bg-info"><i class="fa fa-calendar-o" aria-hidden="true"></i></span>
@@ -157,6 +164,7 @@
                                     {% endfor %}
 
                                     </tbody>
+                                  
             </div>
             {% endif %}
                 
